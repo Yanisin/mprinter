@@ -1,0 +1,59 @@
+//
+//This file is part of mPrinter CUPS Driver.
+//
+//    mPrinter CUPS driver is free software: you can redistribute it and/or modify
+//    it under the terms of the GNU General Public License as published by
+//    the Free Software Foundation, either version 3 of the License, or
+//    (at your option) any later version.
+//
+//    mPrinter CUPS Driver is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//    GNU General Public License for more details.
+//
+//    You should have received a copy of the GNU General Public License
+//    along with mPrinter CUPS Driver.  If not, see <http://www.gnu.org/licenses/>.
+//
+//
+//	  (c)2013 Stepan Badger Knakal 
+//	
+//	  http://jezevcinora.cz/mprinter_forum
+//
+//
+
+
+// Include standard font and media definitions
+#include <font.defs>
+#include <media.defs>
+#include <raster.defs>
+#include "mprinter.defs"
+
+
+
+// List the fonts that are supported, in this case all standard fonts...
+Font *
+
+// Manufacturer, model name, and version
+Manufacturer "mPrinter LLC"
+ModelName "mPrinter"
+Version 1.0
+
+// Specify that this driver uses the socket driver
+//DriverType socket
+DriverType custom
+
+// Each filter provided by the driver...
+Filter application/vnd.cups-raster 100 rastertomprinter
+
+// Supported page sizes
+*MediaSize mPrint
+MediaSize mPrint_long
+
+// Supported resolutions (why is this Deprecated, what's the alternative?)
+*Resolution k 1 0 0 0 "180dpi/black, 1bit per color"
+
+//HWMargins 0.4cm 0cm 0.4cm 0cm
+HWMargins 1cm 0cm 1cm 0cm
+
+// Specify the name of the PPD file we want to generate...
+PCFileName "mprinter.ppd"
