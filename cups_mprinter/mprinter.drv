@@ -49,6 +49,8 @@ Filter application/vnd.cups-raster 100 rastertomprinter
 *MediaSize mPrint
 MediaSize mPrint_long
 
+VariablePaperSize yes
+
 // Supported resolutions (why is this Deprecated, what's the alternative?)
 *Resolution k 1 0 0 0 "180dpi/black, 1bit per color"
 
