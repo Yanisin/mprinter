@@ -43,7 +43,7 @@ Version 1.0
 DriverType custom
 
 // Each filter provided by the driver...
-Filter application/vnd.cups-raster 100 rastertomprinter
+Filter application/vnd.cups-raster 100 rastertomprinter_python
 
 // Supported page sizes
 *MediaSize mPrint
@@ -58,4 +58,4 @@ VariablePaperSize yes
 HWMargins 1cm 0cm 1cm 0cm
 
 // Specify the name of the PPD file we want to generate...
-PCFileName "mprinter.ppd"
+PCFileName "mprinter_python.ppd"

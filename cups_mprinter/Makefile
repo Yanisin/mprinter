@@ -26,6 +26,7 @@ all: mprinter.ppd rastertomprinter
 
 mprinter.ppd: mprinter.drv
 	ppdc -d . mprinter.drv
+	ppdc -d . mprinter_python.drv
 
 rastertomprinter.o: rastertomprinter.c
 	gcc -c -o rastertomprinter.o `cups-config --cflags` -lcups rastertomprinter.c `cups-config --image --libs`
@@ -35,6 +36,7 @@ rastertomprinter: rastertomprinter.o
 
 install: rastertomprinter
 	sudo cp rastertomprinter /usr/lib/cups/filter
+	sudo cp rastertomprinter_python /usr/lib/cups/filter
 
 clean:
 	rm -f mprinter.ppd
