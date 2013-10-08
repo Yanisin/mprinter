@@ -10,252 +10,256 @@ log_file.write("\n---\n")
 sync_word = sys.stdin.read(4)
 log_file.write("Syncronization word:" + sync_word + "\n")
 
-#CUPS Version 1 Raster Page Device Dictionary
-#Bytes   Type    Description Values
-#0-63    C String    MediaClass  Media class string
-MediaClass = sys.stdin.read(64)
-#log_file.write("Media class string:" + MediaClass + "\n")
+while True:
 
-#64-127  C String    MediaColor  Media color string
-MediaColor = sys.stdin.read(64)
-#log_file.write("Media color string:" + MediaColor + "\n")
+    #CUPS Version 1 Raster Page Device Dictionary
+    #Bytes   Type    Description Values
+    #0-63    C String    MediaClass  Media class string
+    MediaClass = sys.stdin.read(64)
+    if len(MediaClass) == 0:
+        break  #EOF
+    #log_file.write("Media class string:" + MediaClass + "\n")
 
-#128-191 C String    MediaType   Media type string
-MediaType = sys.stdin.read(64)
-#log_file.write("Media type string:" + MediaType + "\n")
+    #64-127  C String    MediaColor  Media color string
+    MediaColor = sys.stdin.read(64)
+    #log_file.write("Media color string:" + MediaColor + "\n")
 
-#192-255 C String    OutputType  Output type string
-OutputType = sys.stdin.read(64)
-#log_file.write("Media color string:" + OutputType + "\n")
+    #128-191 C String    MediaType   Media type string
+    MediaType = sys.stdin.read(64)
+    #log_file.write("Media type string:" + MediaType + "\n")
 
-#256-259 Unsigned Integer    AdvanceDistance 0 to 232 - 1 points
-sys.stdin.read(4)
-#260-263 Unsigned Integer    AdvanceMedia    0 = Never advance roll
-#1 = Advance roll after file
-#2 = Advance roll after job
-#3 = Advance roll after set
-#4 = Advance roll after page
-sys.stdin.read(4)
-#264-267 Unsigned Integer    Collate 0 = do not collate copies
-#1 = collate copies
-sys.stdin.read(4)
-#268-271 Unsigned Integer    CutMedia    0 = Never cut media
-#1 = Cut roll after file
-#2 = Cut roll after job
-#3 = Cut roll after set
-#4 = Cut roll after page
-sys.stdin.read(4)
-#272-275 Unsigned Integer    Duplex  0 = Print single-sided
-#1 = Print double-sided
-sys.stdin.read(4)
-#276-283 Unsigned Integers (2)   HWResolution    Horizontal and vertical
-#resolution in dots-per-inch.
-sys.stdin.read(4)
-sys.stdin.read(4)
-#284-299 Unsigned Integers (4)   ImagingBoundingBox  Four integers giving the
-#left, bottom, right, and top positions of the page bounding box in points
-sys.stdin.read(4)
-sys.stdin.read(4)
-sys.stdin.read(4)
-sys.stdin.read(4)
-#300-303 Unsigned Integer    InsertSheet 0 = Do not insert separator sheets
-#1 = Insert separator sheets
-sys.stdin.read(4)
-#304-307 Unsigned Integer    Jog 0 = Do no jog pages
-#1 = Jog pages after file
-#2 = Jog pages after job
-#3 = Jog pages after set
-sys.stdin.read(4)
-#308-311 Unsigned Integer    LeadingEdge 0 = Top edge is first
-#1 = Right edge is first
-#2 = Bottom edge is first
-#3 = Left edge is first
-sys.stdin.read(4)
-#312-319 Unsigned Integers (2)   Margins Left and bottom origin of image in
-#points
-sys.stdin.read(4)
-sys.stdin.read(4)
-#320-323 Unsigned Integer    ManualFeed  0 = Do not manually feed media
-#1 = Manually feed media
-sys.stdin.read(4)
-#324-327 Unsigned Integer    MediaPosition   Input slot position from 0 to N
-sys.stdin.read(4)
-#328-331 Unsigned Integer    MediaWeight Media weight in grams per meter squared,
-sys.stdin.read(4)
-#0 = printer default
-#332-335 Unsigned Integer    MirrorPrint 0 = Do not mirror prints
-#1 = Mirror prints
-sys.stdin.read(4)
-#336-339 Unsigned Integer    NegativePrint   0 = Do not invert prints
-#1 = Invert prints
-sys.stdin.read(4)
-#340-343 Unsigned Integer    NumCopies   0 to 232 - 1, 0 = printer default
-sys.stdin.read(4)
-#344-347 Unsigned Integer    Orientation 0 = Do not rotate page
-#1 = Rotate page counter-clockwise
-#2 = Turn page upside down
-#3 = Rotate page clockwise
-sys.stdin.read(4)
-#348-351 Unsigned Integer    OutputFaceUp    0 = Output face down
-#1 = Output face up
-sys.stdin.read(4)
-#352-359 Unsigned Integers (2)   PageSize    Width and length in points
-#FIXME fix the byte order
-w = sys.stdin.read(4)
-h = sys.stdin.read(4)
-width = unpack('i',w)[0]
-height = unpack('i',h)[0]
-log_file.write("width: " + str(width) + " height:" + str(height)+ "\n")
+    #192-255 C String    OutputType  Output type string
+    OutputType = sys.stdin.read(64)
+    #log_file.write("Media color string:" + OutputType + "\n")
 
-#360-363 Unsigned Integer    Separations 0 = Print composite image
-#1 = Print color separations
-sys.stdin.read(4)
+    #256-259 Unsigned Integer    AdvanceDistance 0 to 232 - 1 points
+    sys.stdin.read(4)
+    #260-263 Unsigned Integer    AdvanceMedia    0 = Never advance roll
+    #1 = Advance roll after file
+    #2 = Advance roll after job
+    #3 = Advance roll after set
+    #4 = Advance roll after page
+    sys.stdin.read(4)
+    #264-267 Unsigned Integer    Collate 0 = do not collate copies
+    #1 = collate copies
+    sys.stdin.read(4)
+    #268-271 Unsigned Integer    CutMedia    0 = Never cut media
+    #1 = Cut roll after file
+    #2 = Cut roll after job
+    #3 = Cut roll after set
+    #4 = Cut roll after page
+    sys.stdin.read(4)
+    #272-275 Unsigned Integer    Duplex  0 = Print single-sided
+    #1 = Print double-sided
+    sys.stdin.read(4)
+    #276-283 Unsigned Integers (2)   HWResolution    Horizontal and vertical
+    #resolution in dots-per-inch.
+    sys.stdin.read(4)
+    sys.stdin.read(4)
+    #284-299 Unsigned Integers (4)   ImagingBoundingBox  Four integers giving the
+    #left, bottom, right, and top positions of the page bounding box in points
+    sys.stdin.read(4)
+    sys.stdin.read(4)
+    sys.stdin.read(4)
+    sys.stdin.read(4)
+    #300-303 Unsigned Integer    InsertSheet 0 = Do not insert separator sheets
+    #1 = Insert separator sheets
+    sys.stdin.read(4)
+    #304-307 Unsigned Integer    Jog 0 = Do no jog pages
+    #1 = Jog pages after file
+    #2 = Jog pages after job
+    #3 = Jog pages after set
+    sys.stdin.read(4)
+    #308-311 Unsigned Integer    LeadingEdge 0 = Top edge is first
+    #1 = Right edge is first
+    #2 = Bottom edge is first
+    #3 = Left edge is first
+    sys.stdin.read(4)
+    #312-319 Unsigned Integers (2)   Margins Left and bottom origin of image in
+    #points
+    sys.stdin.read(4)
+    sys.stdin.read(4)
+    #320-323 Unsigned Integer    ManualFeed  0 = Do not manually feed media
+    #1 = Manually feed media
+    sys.stdin.read(4)
+    #324-327 Unsigned Integer    MediaPosition   Input slot position from 0 to N
+    sys.stdin.read(4)
+    #328-331 Unsigned Integer    MediaWeight Media weight in grams per meter squared,
+    sys.stdin.read(4)
+    #0 = printer default
+    #332-335 Unsigned Integer    MirrorPrint 0 = Do not mirror prints
+    #1 = Mirror prints
+    sys.stdin.read(4)
+    #336-339 Unsigned Integer    NegativePrint   0 = Do not invert prints
+    #1 = Invert prints
+    sys.stdin.read(4)
+    #340-343 Unsigned Integer    NumCopies   0 to 232 - 1, 0 = printer default
+    sys.stdin.read(4)
+    #344-347 Unsigned Integer    Orientation 0 = Do not rotate page
+    #1 = Rotate page counter-clockwise
+    #2 = Turn page upside down
+    #3 = Rotate page clockwise
+    sys.stdin.read(4)
+    #348-351 Unsigned Integer    OutputFaceUp    0 = Output face down
+    #1 = Output face up
+    sys.stdin.read(4)
+    #352-359 Unsigned Integers (2)   PageSize    Width and length in points
+    #FIXME fix the byte order
+    w = sys.stdin.read(4)
+    h = sys.stdin.read(4)
+    width = unpack('i',w)[0]
+    height = unpack('i',h)[0]
+    log_file.write("width: " + str(width) + " height:" + str(height)+ "\n")
 
-#364-367 Unsigned Integer    TraySwitch  0 = Do not change trays if selected tray
-#is empty
-#1 = Change trays if selected tray is empty
-sys.stdin.read(4)
-#368-371 Unsigned Integer    Tumble  0 = Do not rotate even pages when duplexing
-#1 = Rotate even pages when duplexing
-sys.stdin.read(4)
-#372-375 Unsigned Integer    cupsWidth   Width of page image in pixels
-#376-379 Unsigned Integer    cupsHeight  Height of page image in pixels
-w = sys.stdin.read(4)
-h = sys.stdin.read(4)
-cupsWidth = unpack('i',w)[0]
-cupsHeight = unpack('i',h)[0]
-log_file.write("cupsWidth: " + str(cupsWidth) + " cupsHeight:" + str(cupsHeight)+ "\n")
-#380-383 Unsigned Integer    cupsMediaType   Driver-specific 0 to 232 - 1
-sys.stdin.read(4)
+    #360-363 Unsigned Integer    Separations 0 = Print composite image
+    #1 = Print color separations
+    sys.stdin.read(4)
 
-#384-387 Unsigned Integer    cupsBitsPerColor    1, 2, 4, 8 bits for version 1
-#raster files
-#1, 2, 4, 8, and 16 bits for version 2/3 raster files
-#FIXME verify this?
-sys.stdin.read(4)
-#388-391 Unsigned Integer    cupsBitsPerPixel    1 to 32 bits for version 1
-#raster files
-#1 to 240 bits for version 2/3 raster files
-#FIXME verify this?
-sys.stdin.read(4)
-#392-395 Unsigned Integer    cupsBytesPerLine    1 to 232 - 1 bytes
-h = sys.stdin.read(4)
-cupsBytesPerLine = unpack('i',h)[0]
-log_file.write("cupsBytesPerLine: " + str(cupsBytesPerLine) +"\n")
+    #364-367 Unsigned Integer    TraySwitch  0 = Do not change trays if selected tray
+    #is empty
+    #1 = Change trays if selected tray is empty
+    sys.stdin.read(4)
+    #368-371 Unsigned Integer    Tumble  0 = Do not rotate even pages when duplexing
+    #1 = Rotate even pages when duplexing
+    sys.stdin.read(4)
+    #372-375 Unsigned Integer    cupsWidth   Width of page image in pixels
+    #376-379 Unsigned Integer    cupsHeight  Height of page image in pixels
+    w = sys.stdin.read(4)
+    h = sys.stdin.read(4)
+    cupsWidth = unpack('i',w)[0]
+    cupsHeight = unpack('i',h)[0]
+    log_file.write("cupsWidth: " + str(cupsWidth) + " cupsHeight:" + str(cupsHeight)+ "\n")
+    #380-383 Unsigned Integer    cupsMediaType   Driver-specific 0 to 232 - 1
+    sys.stdin.read(4)
 
-#396-399 Unsigned Integer    cupsColorOrder  0 = chunky pixels (CMYK CMYK CMYK)
-#1 = banded pixels (CCC MMM YYY KKK)
-#2 = planar pixels (CCC... MMM... YYY... KKK...)
-sys.stdin.read(4)
-#400-403 Unsigned Integer    cupsColorSpace  0 = gray (device, typically
-#        sRGB-based)
-#1 = RGB (device, typically sRGB)
-#2 = RGBA (device, typically sRGB)
-#3 = black
-#4 = CMY
-#5 = YMC
-#6 = CMYK
-#7 = YMCK
-#8 = KCMY
-#9 = KCMYcm
-#10 = GMCK
-#11 = GMCS
-#12 = WHITE
-#13 = GOLD
-#14 = SILVER
-#15 = CIE XYZ
-#16 = CIE Lab
-#17 = RGBW (sRGB)
-#18 = sGray (gray using sRGB gamma/white point)
-#19 = sRGB
-#20 = AdobeRGB
-#32 = ICC1 (CIE Lab with hint for 1 color)
-#33 = ICC2 (CIE Lab with hint for 2 colors)
-#34 = ICC3 (CIE Lab with hint for 3 colors)
-#35 = ICC4 (CIE Lab with hint for 4 colors)
-#36 = ICC5 (CIE Lab with hint for 5 colors)
-#37 = ICC6 (CIE Lab with hint for 6 colors)
-#38 = ICC7 (CIE Lab with hint for 7 colors)
-#39 = ICC8 (CIE Lab with hint for 8 colors)
-#40 = ICC9 (CIE Lab with hint for 9 colors)
-#41 = ICCA (CIE Lab with hint for 10 colors)
-#42 = ICCB (CIE Lab with hint for 11 colors)
-#43 = ICCC (CIE Lab with hint for 12 colors)
-#44 = ICCD (CIE Lab with hint for 13 colors)
-#45 = ICCE (CIE Lab with hint for 14 colors)
-#46 = ICCF (CIE Lab with hint for 15 colors)
-#48 = Device1 (DeviceN for 1 color)
-#49 = Device2 (DeviceN for 2 colors)
-#50 = Device3 (DeviceN for 3 colors)
-#51 = Device4 (DeviceN for 4 colors)
-#52 = Device5 (DeviceN for 5 colors)
-#53 = Device6 (DeviceN for 6 colors)
-#54 = Device7 (DeviceN for 7 colors)
-#55 = Device8 (DeviceN for 8 colors)
-#56 = Device9 (DeviceN for 9 colors)
-#57 = DeviceA (DeviceN for 10 colors)
-#58 = DeviceB (DeviceN for 11 colors)
-#59 = DeviceC (DeviceN for 12 colors)
-#60 = DeviceD (DeviceN for 13 colors)
-#61 = DeviceE (DeviceN for 14 colors)
-#62 = DeviceF (DeviceN for 15 colors)
-#FIXME verify this?
-sys.stdin.read(4)
-#404-407 Unsigned Integer    cupsCompression Driver-specific 0 to 232 - 1
-#FIXME verify this?
-sys.stdin.read(4)
-#408-411 Unsigned Integer    cupsRowCount    Driver-specific 0 to 232 - 1
-#FIXME verify this?
-sys.stdin.read(4)
-#412-415 Unsigned Integer    cupsRowFeed Driver-specific 0 to 232 - 1
-#FIXME verify this?
-sys.stdin.read(4)
-#416-419 Unsigned Integer    cupsRowStep Driver-specific 0 to 232 - 1
-#FIXME verify this?
-sys.stdin.read(4)
+    #384-387 Unsigned Integer    cupsBitsPerColor    1, 2, 4, 8 bits for version 1
+    #raster files
+    #1, 2, 4, 8, and 16 bits for version 2/3 raster files
+    #FIXME verify this?
+    sys.stdin.read(4)
+    #388-391 Unsigned Integer    cupsBitsPerPixel    1 to 32 bits for version 1
+    #raster files
+    #1 to 240 bits for version 2/3 raster files
+    #FIXME verify this?
+    sys.stdin.read(4)
+    #392-395 Unsigned Integer    cupsBytesPerLine    1 to 232 - 1 bytes
+    h = sys.stdin.read(4)
+    cupsBytesPerLine = unpack('i',h)[0]
+    log_file.write("cupsBytesPerLine: " + str(cupsBytesPerLine) +"\n")
 
-#CUPS Version 2 Raster Page Device Dictionary
-#0-419   Version 1 header data   See Table 1
-#420-423 Unsigned Integer    cupsNumColors   1 to 15 colors
-#FIXME verify this?
-sys.stdin.read(4)
+    #396-399 Unsigned Integer    cupsColorOrder  0 = chunky pixels (CMYK CMYK CMYK)
+    #1 = banded pixels (CCC MMM YYY KKK)
+    #2 = planar pixels (CCC... MMM... YYY... KKK...)
+    sys.stdin.read(4)
+    #400-403 Unsigned Integer    cupsColorSpace  0 = gray (device, typically
+    #        sRGB-based)
+    #1 = RGB (device, typically sRGB)
+    #2 = RGBA (device, typically sRGB)
+    #3 = black
+    #4 = CMY
+    #5 = YMC
+    #6 = CMYK
+    #7 = YMCK
+    #8 = KCMY
+    #9 = KCMYcm
+    #10 = GMCK
+    #11 = GMCS
+    #12 = WHITE
+    #13 = GOLD
+    #14 = SILVER
+    #15 = CIE XYZ
+    #16 = CIE Lab
+    #17 = RGBW (sRGB)
+    #18 = sGray (gray using sRGB gamma/white point)
+    #19 = sRGB
+    #20 = AdobeRGB
+    #32 = ICC1 (CIE Lab with hint for 1 color)
+    #33 = ICC2 (CIE Lab with hint for 2 colors)
+    #34 = ICC3 (CIE Lab with hint for 3 colors)
+    #35 = ICC4 (CIE Lab with hint for 4 colors)
+    #36 = ICC5 (CIE Lab with hint for 5 colors)
+    #37 = ICC6 (CIE Lab with hint for 6 colors)
+    #38 = ICC7 (CIE Lab with hint for 7 colors)
+    #39 = ICC8 (CIE Lab with hint for 8 colors)
+    #40 = ICC9 (CIE Lab with hint for 9 colors)
+    #41 = ICCA (CIE Lab with hint for 10 colors)
+    #42 = ICCB (CIE Lab with hint for 11 colors)
+    #43 = ICCC (CIE Lab with hint for 12 colors)
+    #44 = ICCD (CIE Lab with hint for 13 colors)
+    #45 = ICCE (CIE Lab with hint for 14 colors)
+    #46 = ICCF (CIE Lab with hint for 15 colors)
+    #48 = Device1 (DeviceN for 1 color)
+    #49 = Device2 (DeviceN for 2 colors)
+    #50 = Device3 (DeviceN for 3 colors)
+    #51 = Device4 (DeviceN for 4 colors)
+    #52 = Device5 (DeviceN for 5 colors)
+    #53 = Device6 (DeviceN for 6 colors)
+    #54 = Device7 (DeviceN for 7 colors)
+    #55 = Device8 (DeviceN for 8 colors)
+    #56 = Device9 (DeviceN for 9 colors)
+    #57 = DeviceA (DeviceN for 10 colors)
+    #58 = DeviceB (DeviceN for 11 colors)
+    #59 = DeviceC (DeviceN for 12 colors)
+    #60 = DeviceD (DeviceN for 13 colors)
+    #61 = DeviceE (DeviceN for 14 colors)
+    #62 = DeviceF (DeviceN for 15 colors)
+    #FIXME verify this?
+    sys.stdin.read(4)
+    #404-407 Unsigned Integer    cupsCompression Driver-specific 0 to 232 - 1
+    #FIXME verify this?
+    sys.stdin.read(4)
+    #408-411 Unsigned Integer    cupsRowCount    Driver-specific 0 to 232 - 1
+    #FIXME verify this?
+    sys.stdin.read(4)
+    #412-415 Unsigned Integer    cupsRowFeed Driver-specific 0 to 232 - 1
+    #FIXME verify this?
+    sys.stdin.read(4)
+    #416-419 Unsigned Integer    cupsRowStep Driver-specific 0 to 232 - 1
+    #FIXME verify this?
+    sys.stdin.read(4)
 
-#424-427 IEEE Single Precision   cupsBorderlessScalingFactor 0.0 or 1.0 or
-#greater
-sys.stdin.read(4)
-#428-435 IEEE Single Precision (2)   cupsPageSize    Width and length in points
-#FIXME verify this?
-sys.stdin.read(8)
-#436-451 IEEE Single Precision (4)   cupsImagingBBox Four floating point numbers
-#giving the left, bottom, right, and top positions of the page bounding box in
-#points
-sys.stdin.read(16)
-#452-515 Unsigned Integers (16)  cupsInteger 16 driver-defined integer values
-sys.stdin.read(64)
-#516-579 IEEE Single Precision (16)  cupsReal    16 driver-defined floating point
-#values
-sys.stdin.read(64)
-#580-1603    C Strings (16x64)   cupsString  16 driver-defined strings
-sys.stdin.read(1024)
-#1604-1667   C String    cupsMarkerType  Ink/toner type string
-sys.stdin.read(64)
-#1668-1731   C String    cupsRenderingIntent Color rendering intent string
-sys.stdin.read(64)
-#1732-1795   C String    cupsPageSizeName    Page size name/keyword string from
-#PPD
-sys.stdin.read(64)
+    #CUPS Version 2 Raster Page Device Dictionary
+    #0-419   Version 1 header data   See Table 1
+    #420-423 Unsigned Integer    cupsNumColors   1 to 15 colors
+    #FIXME verify this?
+    sys.stdin.read(4)
 
-bytes_per_line=73
+    #424-427 IEEE Single Precision   cupsBorderlessScalingFactor 0.0 or 1.0 or
+    #greater
+    sys.stdin.read(4)
+    #428-435 IEEE Single Precision (2)   cupsPageSize    Width and length in points
+    #FIXME verify this?
+    sys.stdin.read(8)
+    #436-451 IEEE Single Precision (4)   cupsImagingBBox Four floating point numbers
+    #giving the left, bottom, right, and top positions of the page bounding box in
+    #points
+    sys.stdin.read(16)
+    #452-515 Unsigned Integers (16)  cupsInteger 16 driver-defined integer values
+    sys.stdin.read(64)
+    #516-579 IEEE Single Precision (16)  cupsReal    16 driver-defined floating point
+    #values
+    sys.stdin.read(64)
+    #580-1603    C Strings (16x64)   cupsString  16 driver-defined strings
+    sys.stdin.read(1024)
+    #1604-1667   C String    cupsMarkerType  Ink/toner type string
+    sys.stdin.read(64)
+    #1668-1731   C String    cupsRenderingIntent Color rendering intent string
+    sys.stdin.read(64)
+    #1732-1795   C String    cupsPageSizeName    Page size name/keyword string from
+    #PPD
+    sys.stdin.read(64)
 
-for line in range(0,cupsHeight):
-    for pos in range(0,cupsBytesPerLine):
-        c = sys.stdin.read(1)
-        if pos < bytes_per_line:
-            sys.stdout.write(c)
+    bytes_per_line=73
 
-    for pos in range(cupsBytesPerLine,bytes_per_line):
-        sys.stdout.write('\0')
-        
+    for line in range(0,cupsHeight):
+        for pos in range(0,cupsBytesPerLine):
+            c = sys.stdin.read(1)
+            if pos < bytes_per_line:
+                sys.stdout.write(c)
+
+        for pos in range(cupsBytesPerLine,bytes_per_line):
+            sys.stdout.write('\0')
+            
 #FIXME enable printing of more pages
 
 #while True:
