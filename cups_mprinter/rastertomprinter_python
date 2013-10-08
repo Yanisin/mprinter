@@ -122,9 +122,9 @@ sys.stdin.read(4)
 #376-379 Unsigned Integer    cupsHeight  Height of page image in pixels
 w = sys.stdin.read(4)
 h = sys.stdin.read(4)
-width = unpack('i',w)[0]
-height = unpack('i',h)[0]
-log_file.write("cupsWidth: " + str(width) + " cupsHeight:" + str(height)+ "\n")
+cupsWidth = unpack('i',w)[0]
+cupsHeight = unpack('i',h)[0]
+log_file.write("cupsWidth: " + str(cupsWidth) + " cupsHeight:" + str(cupsHeight)+ "\n")
 #380-383 Unsigned Integer    cupsMediaType   Driver-specific 0 to 232 - 1
 sys.stdin.read(4)
 
@@ -245,14 +245,23 @@ sys.stdin.read(64)
 #PPD
 sys.stdin.read(64)
 
+bytes_per_line=73
 
+for line in range(0,cupsHeight):
+    for pos in range(0,cupsBytesPerLine):
+        c = sys.stdin.read(1)
+        if pos < bytes_per_line:
+            sys.stdout.write(c)
 
-while True:
-    c = sys.stdin.read(1)
-    if len(c) == 0:
-        break  #EOF
+    for pos in range(cupsBytesPerLine,bytes_per_line):
+        sys.stdout.write('\0')
+        
+#FIXME enable printing of more pages
+
+#while True:
+#    if len(c) == 0:
+#        break  #EOF
     #write read char to stdout
-    sys.stdout.write(c)
     #sys.stdout.write(" ")
     #sys.stdout.write("{0:02x}".format(ord(c)))
     #sys.stdout.write(" ")
