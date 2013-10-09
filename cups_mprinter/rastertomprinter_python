@@ -17,9 +17,9 @@
 #     along with mPrinter CUPS Driver.  If not, see <http://www.gnu.org/licenses/>.
 # 
 # 
-# 	  (c)2013 Stepan Badger Knakal 
-# 	
-# 	  http://jezevcinora.cz/mprinter_forum
+#       (c)2013 Stepan Badger Knakal 
+#     
+#       http://jezevcinora.cz/mprinter_forum
 # 
 
 
@@ -27,7 +27,7 @@ import sys
 from struct import unpack
 
 #open logfile
-log_file = open('/tmp/cups_mprinter.log','a')
+log_file = open('/tmp/cups_mprinter_py.log','a')
 log_file.write("\n---\n")
 
 #CUPS raster format starts with synchronization word
@@ -275,15 +275,24 @@ while True:
 
     bytes_per_line=73
 
+    sys.stdout.write('\0')
+    sys.stdout.write('\0')
+
     for line in range(0,cupsHeight):
+        sys.stdout.write('\0')
+        sys.stdout.write('\0')
+        bts=0
         for pos in range(0,cupsBytesPerLine):
+            bts=bts+1
             c = sys.stdin.read(1)
             if pos < bytes_per_line:
                 sys.stdout.write(c)
-
+        log_file.write("cupsBytesPerLine: " + str(cupsBytesPerLine) + " printed:"+ str(bts)+ "\n")
         for pos in range(cupsBytesPerLine,bytes_per_line):
+            bts=bts+1
             sys.stdout.write('\0')
-            
+        log_file.write("printed:"+ str(bts) + "\n")
+
 #FIXME enable printing of more pages
 
 #while True:

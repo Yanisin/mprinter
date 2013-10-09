@@ -73,7 +73,7 @@ int main (int argc, char **argv)
         /* allocate memory for 1 line */
         buffer = malloc(header.cupsBytesPerLine);
 
-        printf("%c%c",0);
+        printf("%c%c",0,0);
         /* read raster data */
         for (y = 0; y < header.cupsHeight; y ++)
         {
